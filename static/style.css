@@ -1,0 +1,278 @@
+body {
+    font-family: Arial, sans-serif;
+    background: #f4f6fb;
+    text-align: center;
+    padding: 16px;
+    margin: 0;
+}
+
+.wrap {
+    max-width: 760px;
+    margin: 0 auto;
+    background: white;
+    border-radius: 16px;
+    padding: 20px 16px 28px 16px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+}
+
+h1 {
+    font-size: 28px;
+    margin-bottom: 10px;
+}
+
+p {
+    font-size: 18px;
+    line-height: 1.5;
+}
+
+/* 🎯 캐릭터 영역 */
+#characterBox {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;   /* 말풍선과 캐릭터를 세로 정렬 */
+    align-items: center;
+}
+
+/* 🎯 말풍선 */
+#speechBubble {
+    position: relative;
+    margin-bottom: 20px;   /* 🔥 캐릭터와 거리 확보 */
+
+    font-size: 20px;
+    font-weight: bold;
+    background: #ffffff;
+    border: 2px solid #dddddd;
+    border-radius: 18px;
+    padding: 10px 16px;
+    display: inline-block;
+
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    transition: transform 0.2s ease;
+}
+
+/* 말풍선 꼬리 */
+#speechBubble::after {
+    content: "";
+    position: absolute;
+
+    top: calc(100% - 2px);   /* 🔥 완전 밀착 */
+    left: 50%;
+    transform: translateX(-50%);
+
+    border-width: 14px;
+    border-style: solid;
+    border-color: #ffffff transparent transparent transparent;
+
+    filter: drop-shadow(0 2px 2px rgba(0,0,0,0.1));
+}
+
+/* 캐릭터 이미지 */
+#character {
+    width: 200px;
+    margin-top: 20px;   /* 🔥 간격 추가 */
+}
+
+/* 오선 */
+#staffArea {
+    margin: 24px auto;
+    min-height: 220px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* 선택 버튼 영역 */
+#choices {
+    margin-top: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+}
+
+/* 🔥 버튼 기본 스타일 */
+button {
+    padding: 16px 24px;
+    margin: 0;
+    font-size: 22px;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 18px;
+    border: none;
+    min-width: 90px;
+    min-height: 64px;
+
+    transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
+}
+
+/* 눌렀을 때 */
+button:active {
+    transform: scale(0.95);
+}
+
+/* 클릭 후 흐려지지 않게 */
+button:disabled {
+    opacity: 1;
+}
+
+/* 🎉 정답 반짝 효과 */
+.correct-glow {
+    animation: glowPop 0.9s ease-in-out 2;
+    box-shadow: 0 0 0 0 rgba(255, 215, 0, 0.9);
+    filter: brightness(1.15);
+}
+
+/* ❌ 오답 흔들림 */
+.wrong-shake {
+    animation: shakeWrong 0.45s ease-in-out 1;
+}
+
+/* 결과 텍스트 */
+#result {
+    font-weight: bold;
+    min-height: 32px;
+    margin-top: 18px;
+    font-size: 22px;
+}
+
+/* 🎉 정답 텍스트 효과 */
+.result-correct {
+    color: #ff7a00;
+    font-weight: 800;
+    animation: dingdong 0.8s ease-out;
+}
+
+/* ❌ 오답 텍스트 */
+.result-wrong {
+    color: #666;
+    font-weight: 800;
+    animation: fadePop 0.5s ease-out;
+}
+
+#score {
+    margin-top: 16px;
+    font-size: 22px;
+}
+
+/* 🔥 시작 버튼 */
+#startBtn {
+    width: 100%;
+    max-width: 320px;
+    font-size: 24px;
+    min-height: 68px;
+    margin-top: 12px;
+}
+
+/* 🔥 여기에 추가 */
+.fade-out {
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: all 0.4s ease;
+}
+
+/* ---------------- 애니메이션 ---------------- */
+
+/* 반짝 효과 */
+@keyframes glowPop {
+    0% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(255, 215, 0, 0);
+    }
+    30% {
+        transform: scale(1.1);
+        box-shadow: 0 0 20px 12px rgba(255, 215, 0, 0.5);
+    }
+    60% {
+        transform: scale(1.05);
+        box-shadow: 0 0 12px 6px rgba(255, 215, 0, 0.4);
+    }
+    100% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(255, 215, 0, 0);
+    }
+}
+
+/* 흔들림 효과 */
+@keyframes shakeWrong {
+    0% { transform: translateX(0); }
+    20% { transform: translateX(-6px); }
+    40% { transform: translateX(6px); }
+    60% { transform: translateX(-5px); }
+    80% { transform: translateX(5px); }
+    100% { transform: translateX(0); }
+}
+
+/* 딩동댕 텍스트 */
+@keyframes dingdong {
+    0% {
+        transform: scale(0.8);
+        opacity: 0.3;
+    }
+    50% {
+        transform: scale(1.2);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+/* 부드러운 등장 */
+@keyframes fadePop {
+    0% {
+        transform: scale(0.9);
+        opacity: 0.4;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* ---------------- 스마트폰 ---------------- */
+
+@media (max-width: 600px) {
+    body {
+        padding: 10px;
+    }
+
+    .wrap {
+        padding: 16px 12px 24px 12px;
+        border-radius: 12px;
+    }
+
+    h1 {
+        font-size: 24px;
+    }
+
+    p {
+        font-size: 17px;
+    }
+
+    #character {
+        width: 180px;
+    }
+
+    #speechBubble {
+        font-size: 18px;
+        padding: 9px 14px;
+    }
+
+    button {
+        font-size: 24px;
+        min-width: 100px;
+        min-height: 70px;
+        padding: 16px 20px;
+    }
+
+    #startBtn {
+        width: 100%;
+        font-size: 24px;
+        min-height: 72px;
+    }
+
+    #result,
+    #score {
+        font-size: 20px;
+    }
+}
