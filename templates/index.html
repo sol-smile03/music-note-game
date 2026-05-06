@@ -16,6 +16,13 @@
              <img id="character" src="{{ url_for('static', filename='images/character_idle.png') }}" alt="캐릭터">
         </div>
 
+        <div id="rangeBox">
+            <p class="rangeTitle">문제 음역대를 선택하세요</p>
+            <button class="rangeBtn selected" data-range="treble">높은음자리표</button>
+            <button class="rangeBtn" data-range="bass">낮은음자리표</button>
+            <button class="rangeBtn" data-range="all">전체 섞기</button>
+        </div>
+
         <button id="startBtn">게임 시작</button>
 
         <div id="staffArea"></div>
