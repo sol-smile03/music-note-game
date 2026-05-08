@@ -29,14 +29,14 @@ p {
 #characterBox {
     margin-top: 20px;
     display: flex;
-    flex-direction: column;   /* 말풍선과 캐릭터를 세로 정렬 */
+    flex-direction: column;
     align-items: center;
 }
 
 /* 🎯 말풍선 */
 #speechBubble {
     position: relative;
-    margin-bottom: 20px;   /* 🔥 캐릭터와 거리 확보 */
+    margin-bottom: 20px;
 
     font-size: 20px;
     font-weight: bold;
@@ -55,7 +55,7 @@ p {
     content: "";
     position: absolute;
 
-    top: calc(100% - 2px);   /* 🔥 완전 밀착 */
+    top: calc(100% - 2px);
     left: 50%;
     transform: translateX(-50%);
 
@@ -69,16 +69,16 @@ p {
 /* 캐릭터 이미지 */
 #character {
     width: 200px;
-    margin-top: 20px;   /* 🔥 간격 추가 */
+    margin-top: 20px;
 }
 
 /* 오선 */
 #staffArea {
-    margin: 24px auto;
-    min-height: 220px;
+    margin: 0 auto 8px auto;
+    min-height: 300px;
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
 }
 
 /* 선택 버튼 영역 */
@@ -163,13 +163,14 @@ button:disabled {
     margin-top: 12px;
 }
 
-/* 🔥 여기에 추가 */
+/* 부드럽게 사라지는 효과 */
 .fade-out {
     opacity: 0;
     transform: translateY(-10px);
     transition: all 0.4s ease;
 }
 
+/* 음역 선택 영역 */
 #rangeBox {
     margin: 18px auto 16px auto;
 }
@@ -190,6 +191,27 @@ button:disabled {
 }
 
 .rangeBtn.selected {
+    background: #ffcc4d;
+    color: #222222;
+    border: 2px solid #ff9900;
+    box-shadow: 0 0 12px rgba(255, 170, 0, 0.45);
+}
+
+/* 음표 개수 선택 영역 */
+#countBox {
+    margin: 18px auto 16px auto;
+}
+
+.countBtn {
+    background: #ffffff;
+    color: #333333;
+    border: 2px solid #dddddd;
+    min-width: 90px;
+    min-height: 54px;
+    font-size: 18px;
+}
+
+.countBtn.selected {
     background: #ffcc4d;
     color: #222222;
     border: 2px solid #ff9900;
@@ -255,6 +277,40 @@ button:disabled {
     }
 }
 
+/* ⭐ 별 영역 */
+#starBox {
+    margin-top: 18px;
+    min-height: 50px;
+
+    font-size: 42px;
+
+    display: flex;
+    justify-content: center;
+    gap: 6px;
+    flex-wrap: wrap;
+}
+
+/* ⭐ 새 별 등장 효과 */
+.star-pop {
+    animation: starPop 0.5s ease;
+}
+
+@keyframes starPop {
+    0% {
+        transform: scale(0.2) rotate(-20deg);
+        opacity: 0;
+    }
+
+    70% {
+        transform: scale(1.3) rotate(10deg);
+        opacity: 1;
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
 /* ---------------- 스마트폰 ---------------- */
 
 @media (max-width: 600px) {
@@ -295,6 +351,13 @@ button:disabled {
         width: 100%;
         font-size: 24px;
         min-height: 72px;
+    }
+
+    .rangeBtn,
+    .countBtn {
+        font-size: 18px;
+        min-height: 58px;
+        margin-bottom: 6px;
     }
 
     #result,
