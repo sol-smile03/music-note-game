@@ -123,7 +123,7 @@ function makeQuestion() {
   result.className = "";
   choices.innerHTML = "";
 
-  character.src = "/static/images/character_idle.png";
+  character.src = "static/images/character_idle.png";
 
   answer = currentNotes[Math.floor(Math.random() * currentNotes.length)];
 
@@ -177,7 +177,7 @@ function checkAnswer(selectedId, clickedBtn) {
     result.textContent = `딩동댕! 정답은 ${answer.label}`;
     result.className = "result-correct";
 
-    character.src = "/static/images/character_happy.png";
+    character.src = "static/images/character_happy.png";
 
     correctSound.currentTime = 0;
     correctSound.play();
@@ -188,7 +188,7 @@ function checkAnswer(selectedId, clickedBtn) {
     result.textContent = `아쉬워요! 정답은 ${answer.label}`;
     result.className = "result-wrong";
 
-    character.src = "/static/images/character_sad.png";
+    character.src = "static/images/character_sad.png";
 
     wrongSound.currentTime = 0;
     wrongSound.play();
