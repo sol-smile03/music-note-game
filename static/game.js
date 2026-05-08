@@ -13,8 +13,8 @@ const rangeButtons = document.querySelectorAll(".rangeBtn");
 const countBox = document.getElementById("countBox");
 const countButtons = document.querySelectorAll(".countBtn");
 
-const correctSound = new Audio("/static/sounds/ding.mp3");
-const wrongSound = new Audio("/static/sounds/wrong.mp3");
+const correctSound = new Audio("static/sounds/ding.mp3");
+const wrongSound = new Audio("static/sounds/wrong.mp3");
 
 const trebleNotes = [
   { id: "treble_C4", label: "가온 도", key: "C4", clef: "treble", color: "#ff4d4d" },
