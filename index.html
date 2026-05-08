@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>계이름 게임</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="wrap">
+        <h1>계이름 게임</h1>
+        <p>오선의 음표를 보고 알맞은 계이름을 눌러보세요.</p>
+
+        <div id="characterBox">
+             <div id="speechBubble">준비됐나요?</div>
+             <img id="character" src="{{ url_for('static', filename='images/character_idle.png') }}" alt="캐릭터">
+        </div>
+
+        <div id="rangeBox">
+            <p class="rangeTitle">문제 음역대를 선택하세요</p>
+            <button class="rangeBtn selected" data-range="treble">높은음자리표</button>
+            <button class="rangeBtn" data-range="bass">낮은음자리표</button>
+            <button class="rangeBtn" data-range="all">전체 섞기</button>
+        </div>
+
+        <button id="startBtn">게임 시작</button>
+
+        <div id="staffArea"></div>
+
+        <p id="question">버튼을 누르면 음표가 나옵니다.</p>
+        <div id="choices"></div>
+        <p id="result"></p>
+        <p id="score">점수: 0</p>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vexflow@5.0.0/build/cjs/vexflow.js"></script>
+    <script src="{{ url_for('static', filename='game.js') }}"></script>
+</body>
+</html>
