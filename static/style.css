@@ -339,14 +339,16 @@ button:disabled {
     margin-bottom: -55px;
     }
 
-    #staffArea {
-    margin: -90px auto 0 auto;
-    min-height: 220px;
+   #staffArea {
+    margin: -140px auto -40px auto;
+    min-height: 120px;
 
     display: flex;
-        justify-content: center;
-        align-items: flex-start;
-    }
+    justify-content: center;
+    align-items: flex-start;
+
+    overflow: hidden;
+}
 
     #speechBubble {
         font-size: 18px;
