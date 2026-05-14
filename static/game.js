@@ -13,8 +13,8 @@ const rangeButtons = document.querySelectorAll(".rangeBtn");
 const countBox = document.getElementById("countBox");
 const countButtons = document.querySelectorAll(".countBtn");
 
-const correctSound = new Audio("static/sounds/ding.mp3");
-const wrongSound = new Audio("static/sounds/wrong.mp3");
+const correctSound = new Audio("/static/sounds/ding.mp3");
+const wrongSound = new Audio("/static/sounds/wrong.mp3");
 
 const trebleNotes = [
   { id: "treble_C4", label: "가온 도", key: "C4", clef: "treble", color: "#ff4d4d" },
@@ -209,9 +209,9 @@ if (noteGroup) {
   const svg = staffArea.querySelector("svg");
 
   if (svg) {
-    svg.style.transform = "scale(1.3, 2)";
+    svg.style.transform = "scale(1.45, 2.2)";
     svg.style.transformOrigin = "top center";
-    svg.style.marginTop = "10px";
+   svg.style.marginTop = "-20px";
   }
 }
 
@@ -221,7 +221,7 @@ function makeQuestion() {
   choices.innerHTML = "";
   userSequence = [];
 
-  character.src = "static/images/character_idle.png";
+  character.src = "/static/images/character_idle.png";
 
   answerSequence = pickQuestionNotes();
 
@@ -288,7 +288,7 @@ function checkAnswer(selectedId, clickedBtn) {
     result.textContent = `아쉬워요! 다시 해볼까요?`;
     result.className = "result-wrong";
 
-    character.src = "static/images/character_sad.png";
+    character.src = "/static/images/character_sad.png";
 
     wrongSound.currentTime = 0;
     wrongSound.play();
@@ -313,7 +313,7 @@ function checkAnswer(selectedId, clickedBtn) {
 
     result.className = "result-correct";
 
-    character.src = "static/images/character_happy.png";
+    character.src = "/static/images/character_happy.png";
 
     correctSound.currentTime = 0;
     correctSound.play();
