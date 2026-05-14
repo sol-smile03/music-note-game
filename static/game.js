@@ -52,13 +52,10 @@ function shuffle(array) {
 
 // ⭐ 별 추가 함수
 function addStar() {
-
   stars++;
 
   const star = document.createElement("span");
-
   star.textContent = "⭐";
-
   star.classList.add("star-pop");
 
   starBox.appendChild(star);
@@ -191,6 +188,7 @@ function drawNotes(noteList) {
       finalX = usableStartX + (usableWidth * (index + 1) / 4) - (noteWidth / 2);
     }
 
+    // 현재 화면 기준 오선 안쪽으로 위치 보정
     finalX = finalX - 190;
 
     tickContext.setX(finalX);
@@ -199,31 +197,32 @@ function drawNotes(noteList) {
     note.setStave(stave);
     note.setContext(context).draw();
 
-const noteGroup = staffArea.querySelectorAll(".vf-stavenote")[index];
+    const noteGroup = staffArea.querySelectorAll(".vf-stavenote")[index];
 
-if (noteGroup) {
-  noteGroup.setAttribute("transform", "translate(0, 0.5)");
-}
+    if (noteGroup) {
+      noteGroup.setAttribute("transform", "translate(0, 0.5)");
+    }
   });
 
   const svg = staffArea.querySelector("svg");
 
   if (svg) {
+    const isMobile = window.innerWidth <= 600;
 
-    // 🔥 오선 확대
+    // 오선 확대
     svg.style.transform = "scale(1.3, 2)";
-  
-    // 🔥 확대 기준을 위쪽으로
     svg.style.transformOrigin = "top center";
-
-    // 🔥 SVG 자체 높이를 강제로 줄임
-    svg.style.height = "140px";
-
-    // 🔥 위로 끌어올리기
-    svg.style.marginTop = "-120px";
-
-    // 🔥 아래 여백 제거
     svg.style.display = "block";
+
+    if (isMobile) {
+      // 스마트폰: 여백 강하게 줄이기
+      svg.style.height = "150px";
+      svg.style.marginTop = "-110px";
+    } else {
+      // PC: 딩박사와 겹치지 않게 조정
+      svg.style.height = "240px";
+      svg.style.marginTop = "-20px";
+    }
   }
 }
 
@@ -332,16 +331,15 @@ function checkAnswer(selectedId, clickedBtn) {
 
     score += 1;
 
-scoreText.textContent = `점수: ${score}`;
+    scoreText.textContent = `점수: ${score}`;
 
-// ⭐ 10점마다 별 지급
-if (score % 10 === 0) {
+    // ⭐ 10점마다 별 지급
+    if (score % 10 === 0) {
+      addStar();
 
-  addStar();
-
-  result.textContent = "⭐ 별을 획득했어요!";
-  result.className = "result-correct";
-}
+      result.textContent = "⭐ 별을 획득했어요!";
+      result.className = "result-correct";
+    }
 
     setTimeout(makeQuestion, 1600);
   } else {
