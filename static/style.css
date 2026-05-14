@@ -70,17 +70,19 @@ p {
 #character {
     width: 200px;
     margin-top: 20px;
-    margin-bottom: -30px;
+    margin-bottom: -10px;
 }
 
 /* 오선 */
 #staffArea {
-    margin: -40px auto 0 auto;
-    min-height: 240px;
+    margin: 0 auto 8px auto;
+    min-height: 260px;
 
     display: flex;
     justify-content: center;
     align-items: flex-start;
+
+    overflow: visible;
 }
 
 /* 선택 버튼 영역 */
@@ -334,21 +336,21 @@ button:disabled {
     }
 
     #character {
-    width: 180px;
-    margin-top: 0;
-    margin-bottom: -55px;
+        width: 180px;
+        margin-top: 0;
+        margin-bottom: -35px;
     }
 
-   #staffArea {
-    margin: -140px auto -40px auto;
-    min-height: 120px;
+    #staffArea {
+        margin: -80px auto -20px auto;
+        min-height: 140px;
 
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
 
-    overflow: hidden;
-}
+        overflow: hidden;
+    }
 
     #speechBubble {
         font-size: 18px;
