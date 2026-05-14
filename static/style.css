@@ -334,7 +334,18 @@ button:disabled {
     }
 
     #character {
-        width: 180px;
+    width: 180px;
+    margin-top: 0;
+    margin-bottom: -55px;
+    }
+
+    #staffArea {
+    margin: -90px auto 0 auto;
+    min-height: 220px;
+
+    display: flex;
+        justify-content: center;
+        align-items: flex-start;
     }
 
     #speechBubble {
