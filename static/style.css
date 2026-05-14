@@ -342,7 +342,7 @@ button:disabled {
     }
 
     #staffArea {
-        margin: -80px auto -20px auto;
+        margin: -100px auto -20px auto;
         min-height: 140px;
 
         display: flex;
