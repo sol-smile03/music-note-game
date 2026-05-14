@@ -341,15 +341,15 @@ button:disabled {
         margin-bottom: -35px;
     }
 
-    #staffArea {
-        margin: -80px auto -20px auto;
-        min-height: 140px;
+   #staffArea {
+    margin: -40px auto 0 auto;
+    min-height: 170px;
 
-        display: flex;
-        justify-content: center;
-        align-items: flex-start;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
 
-        overflow: hidden;
+    overflow: hidden;
     }
 
     #speechBubble {
