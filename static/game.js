@@ -217,7 +217,7 @@ function drawNotes(noteList) {
     if (isMobile) {
       // 스마트폰: 여백 강하게 줄이기
       svg.style.height = "150px";
-      svg.style.marginTop = "-110px";
+      svg.style.marginTop = "-70px";
     } else {
       // PC: 딩박사와 겹치지 않게 조정
       svg.style.height = "240px";
