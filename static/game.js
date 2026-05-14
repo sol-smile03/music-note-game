@@ -209,9 +209,21 @@ if (noteGroup) {
   const svg = staffArea.querySelector("svg");
 
   if (svg) {
-    svg.style.transform = "scale(1.45, 2.2)";
+
+    // 🔥 오선 확대
+    svg.style.transform = "scale(1.3, 2)";
+  
+    // 🔥 확대 기준을 위쪽으로
     svg.style.transformOrigin = "top center";
-   svg.style.marginTop = "-20px";
+
+    // 🔥 SVG 자체 높이를 강제로 줄임
+    svg.style.height = "140px";
+
+    // 🔥 위로 끌어올리기
+    svg.style.marginTop = "-120px";
+
+    // 🔥 아래 여백 제거
+    svg.style.display = "block";
   }
 }
 
