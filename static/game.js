@@ -32,6 +32,7 @@ const bassNotes = [
   { id: "bass_C4", answerKey: "C4", label: "가온 도", key: "C4", clef: "bass", color: "#ff4d4d" }
 ];
 
+// 전체 모드 버튼용: 가온 도는 하나만 보이게 함
 const allNotes = [
   ...bassNotes.filter(note => note.id !== "bass_C4"),
   ...trebleNotes
@@ -254,7 +255,6 @@ function makeQuestion() {
   options.forEach(noteObj => {
     const btn = document.createElement("button");
     btn.textContent = noteObj.label;
-    btn.dataset.id = noteObj.id;
     btn.dataset.answerKey = noteObj.answerKey;
 
     btn.style.backgroundColor = noteObj.color;
@@ -285,7 +285,9 @@ function highlightCorrectSequence() {
   const buttons = choices.querySelectorAll("button");
 
   buttons.forEach(btn => {
-    const isCorrect = answerSequence.some(note => note.answerKey === btn.dataset.answerKey);
+    const isCorrect = answerSequence.some(note => {
+      return note.answerKey === btn.dataset.answerKey;
+    });
 
     if (isCorrect) {
       btn.classList.add("correct-glow");
@@ -293,13 +295,13 @@ function highlightCorrectSequence() {
   });
 }
 
-function checkAnswer(selectedId, clickedBtn) {
-  userSequence.push(selectedId);
+function checkAnswer(selectedKey, clickedBtn) {
+  userSequence.push(selectedKey);
 
   const currentIndex = userSequence.length - 1;
   const correctAnswerKey = answerSequence[currentIndex].answerKey;
 
-  if (selectedId !== correctAnswerKey) {
+  if (selectedKey !== correctAnswerKey) {
     disableChoiceButtons();
 
     result.textContent = `아쉬워요! 다시 해볼까요?`;
@@ -336,7 +338,6 @@ function checkAnswer(selectedId, clickedBtn) {
     correctSound.play();
 
     score += 1;
-
     scoreText.textContent = `점수: ${score}`;
 
     if (score % 10 === 0) {
