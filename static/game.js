@@ -53,6 +53,8 @@ function shuffle(array) {
 }
 
 function addStar() {
+  if (!starBox) return;
+
   stars++;
 
   const star = document.createElement("span");
@@ -77,6 +79,7 @@ function setRange(range) {
 
   rangeButtons.forEach(btn => {
     btn.classList.remove("selected");
+
     if (btn.dataset.range === range) {
       btn.classList.add("selected");
     }
@@ -89,6 +92,7 @@ function setQuestionCount(count) {
 
   countButtons.forEach(btn => {
     btn.classList.remove("selected");
+
     if (Number(btn.dataset.count) === count) {
       btn.classList.add("selected");
     }
@@ -276,6 +280,7 @@ function makeQuestion() {
 
 function disableChoiceButtons() {
   const buttons = choices.querySelectorAll("button");
+
   buttons.forEach(btn => {
     btn.disabled = true;
   });
