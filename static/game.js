@@ -17,19 +17,19 @@ const correctSound = new Audio("/static/sounds/ding.mp3");
 const wrongSound = new Audio("/static/sounds/wrong.mp3");
 
 const trebleNotes = [
-  { id: "treble_C4", label: "가온 도", key: "C4", clef: "treble", color: "#ff4d4d" },
-  { id: "treble_D4", label: "가온 레", key: "D4", clef: "treble", color: "#ff9933" },
-  { id: "treble_E4", label: "가온 미", key: "E4", clef: "treble", color: "#ffd633" },
-  { id: "treble_F4", label: "가온 파", key: "F4", clef: "treble", color: "#33cc66" },
-  { id: "treble_G4", label: "가온 솔", key: "G4", clef: "treble", color: "#3399ff" }
+  { id: "treble_C4", answerKey: "C4", label: "가온 도", key: "C4", clef: "treble", color: "#ff4d4d" },
+  { id: "treble_D4", answerKey: "D4", label: "가온 레", key: "D4", clef: "treble", color: "#ff9933" },
+  { id: "treble_E4", answerKey: "E4", label: "가온 미", key: "E4", clef: "treble", color: "#ffd633" },
+  { id: "treble_F4", answerKey: "F4", label: "가온 파", key: "F4", clef: "treble", color: "#33cc66" },
+  { id: "treble_G4", answerKey: "G4", label: "가온 솔", key: "G4", clef: "treble", color: "#3399ff" }
 ];
 
 const bassNotes = [
-  { id: "bass_F3", label: "낮은 파", key: "F3", clef: "bass", color: "#33cc66" },
-  { id: "bass_G3", label: "낮은 솔", key: "G3", clef: "bass", color: "#3399ff" },
-  { id: "bass_A3", label: "낮은 라", key: "A3", clef: "bass", color: "#3f51b5" },
-  { id: "bass_B3", label: "낮은 시", key: "B3", clef: "bass", color: "#9c4dff" },
-  { id: "bass_C4", label: "가온 도", key: "C4", clef: "bass", color: "#ff4d4d" }
+  { id: "bass_F3", answerKey: "F3", label: "낮은 파", key: "F3", clef: "bass", color: "#33cc66" },
+  { id: "bass_G3", answerKey: "G3", label: "낮은 솔", key: "G3", clef: "bass", color: "#3399ff" },
+  { id: "bass_A3", answerKey: "A3", label: "낮은 라", key: "A3", clef: "bass", color: "#3f51b5" },
+  { id: "bass_B3", answerKey: "B3", label: "낮은 시", key: "B3", clef: "bass", color: "#9c4dff" },
+  { id: "bass_C4", answerKey: "C4", label: "가온 도", key: "C4", clef: "bass", color: "#ff4d4d" }
 ];
 
 const allNotes = [
@@ -45,12 +45,12 @@ let score = 0;
 let stars = 0;
 let answerSequence = [];
 let userSequence = [];
+let lastAnswerKeys = [];
 
 function shuffle(array) {
   return [...array].sort(() => Math.random() - 0.5);
 }
 
-// ⭐ 별 추가 함수
 function addStar() {
   stars++;
 
@@ -72,6 +72,8 @@ function setRange(range) {
     currentNotes = allNotes;
   }
 
+  lastAnswerKeys = [];
+
   rangeButtons.forEach(btn => {
     btn.classList.remove("selected");
     if (btn.dataset.range === range) {
@@ -82,6 +84,7 @@ function setRange(range) {
 
 function setQuestionCount(count) {
   questionCount = count;
+  lastAnswerKeys = [];
 
   countButtons.forEach(btn => {
     btn.classList.remove("selected");
@@ -104,12 +107,27 @@ countButtons.forEach(btn => {
 });
 
 function pickQuestionNotes() {
+  let sourceNotes;
+
   if (selectedRange === "all") {
-    const group = Math.random() < 0.5 ? bassNotes : trebleNotes;
-    return shuffle(group).slice(0, questionCount);
+    sourceNotes = Math.random() < 0.5 ? bassNotes : trebleNotes;
+  } else {
+    sourceNotes = currentNotes;
   }
 
-  return shuffle(currentNotes).slice(0, questionCount);
+  let availableNotes = sourceNotes.filter(note => {
+    return !lastAnswerKeys.includes(note.answerKey);
+  });
+
+  if (availableNotes.length < questionCount) {
+    availableNotes = sourceNotes;
+  }
+
+  const pickedNotes = shuffle(availableNotes).slice(0, questionCount);
+
+  lastAnswerKeys = pickedNotes.map(note => note.answerKey);
+
+  return pickedNotes;
 }
 
 function getOptions() {
@@ -145,11 +163,9 @@ function drawNotes(noteList) {
   stave.addClef(noteList[0].clef);
   stave.setContext(context).draw();
 
-  // 오선 안에서 음표가 들어갈 수 있는 실제 범위
   const noteStartX = stave.getNoteStartX();
   const noteEndX = stave.getNoteEndX();
 
-  // 음표가 오선 가장자리에 붙지 않도록 여백 설정
   const leftPadding = 30;
   const rightPadding = 30;
 
@@ -173,22 +189,14 @@ function drawNotes(noteList) {
 
     let finalX;
 
-    // 음표 1개일 때: 오선 중앙
     if (noteList.length === 1) {
       finalX = usableStartX + (usableWidth / 2) - (noteWidth / 2);
-    }
-
-    // 음표 2개일 때: 오선 안쪽에 균등 배치
-    else if (noteList.length === 2) {
+    } else if (noteList.length === 2) {
       finalX = usableStartX + (usableWidth * (index + 1) / 3) - (noteWidth / 2);
-    }
-
-    // 음표 3개일 때: 오선 안쪽에 균등 배치
-    else {
+    } else {
       finalX = usableStartX + (usableWidth * (index + 1) / 4) - (noteWidth / 2);
     }
 
-    // 현재 화면 기준 오선 안쪽으로 위치 보정
     finalX = finalX - 190;
 
     tickContext.setX(finalX);
@@ -209,17 +217,14 @@ function drawNotes(noteList) {
   if (svg) {
     const isMobile = window.innerWidth <= 600;
 
-    // 오선 확대
     svg.style.transform = "scale(1.3, 2)";
     svg.style.transformOrigin = "top center";
     svg.style.display = "block";
 
     if (isMobile) {
-      // 스마트폰: 여백 강하게 줄이기
       svg.style.height = "150px";
       svg.style.marginTop = "-70px";
     } else {
-      // PC: 딩박사와 겹치지 않게 조정
       svg.style.height = "240px";
       svg.style.marginTop = "-20px";
     }
@@ -250,6 +255,7 @@ function makeQuestion() {
     const btn = document.createElement("button");
     btn.textContent = noteObj.label;
     btn.dataset.id = noteObj.id;
+    btn.dataset.answerKey = noteObj.answerKey;
 
     btn.style.backgroundColor = noteObj.color;
     btn.style.border = "none";
@@ -263,7 +269,7 @@ function makeQuestion() {
       btn.style.color = "#fff";
     }
 
-    btn.onclick = () => checkAnswer(noteObj.id, btn);
+    btn.onclick = () => checkAnswer(noteObj.answerKey, btn);
     choices.appendChild(btn);
   });
 }
@@ -279,7 +285,7 @@ function highlightCorrectSequence() {
   const buttons = choices.querySelectorAll("button");
 
   buttons.forEach(btn => {
-    const isCorrect = answerSequence.some(note => note.id === btn.dataset.id);
+    const isCorrect = answerSequence.some(note => note.answerKey === btn.dataset.answerKey);
 
     if (isCorrect) {
       btn.classList.add("correct-glow");
@@ -291,9 +297,9 @@ function checkAnswer(selectedId, clickedBtn) {
   userSequence.push(selectedId);
 
   const currentIndex = userSequence.length - 1;
-  const correctId = answerSequence[currentIndex].id;
+  const correctAnswerKey = answerSequence[currentIndex].answerKey;
 
-  if (selectedId !== correctId) {
+  if (selectedId !== correctAnswerKey) {
     disableChoiceButtons();
 
     result.textContent = `아쉬워요! 다시 해볼까요?`;
@@ -333,7 +339,6 @@ function checkAnswer(selectedId, clickedBtn) {
 
     scoreText.textContent = `점수: ${score}`;
 
-    // ⭐ 10점마다 별 지급
     if (score % 10 === 0) {
       addStar();
 
