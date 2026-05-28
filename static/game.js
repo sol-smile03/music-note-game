@@ -357,13 +357,20 @@ startBtn.addEventListener("click", () => {
   speechBubble.classList.add("fade-out");
   startBtn.classList.add("fade-out");
   rangeBox.classList.add("fade-out");
-  countBox.classList.add("fade-out");
+
+  if (countBox) {
+    countBox.classList.add("fade-out");
+  }
 
   setTimeout(() => {
     speechBubble.style.display = "none";
     startBtn.style.display = "none";
     rangeBox.style.display = "none";
-    countBox.style.display = "none";
+
+    if (countBox) {
+      countBox.style.display = "none";
+    }
+
     makeQuestion();
   }, 400);
 });
