@@ -5,8 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>계이름 게임</title>
 
-    <!-- 🔥 CSS 캐시 방지 -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css?v=8') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}?v=9">
 </head>
 
 <body>
@@ -15,7 +14,6 @@
         <h1>계이름 게임</h1>
         <p>오선의 음표를 보고 알맞은 계이름을 눌러보세요.</p>
 
-        <!-- 🎹 딩박사 -->
         <div id="characterBox">
             <div id="speechBubble">준비됐나요?</div>
 
@@ -26,81 +24,63 @@
             >
         </div>
 
-        <!-- 🎼 음자리표 선택 -->
         <div id="rangeBox">
+            <p class="rangeTitle">문제 음역대를 선택하세요</p>
 
-        <p style="color:red; font-size:24px;">개수 선택 영역 테스트</p>    
-        <p class="rangeTitle">문제 음역대를 선택하세요</p>
+            <button class="rangeBtn selected" data-range="treble">
+                높은음자리표
+            </button>
 
-        <button class="rangeBtn selected" data-range="treble">
-         높은음자리표
-        </button>
+            <button class="rangeBtn" data-range="bass">
+                낮은음자리표
+            </button>
 
-        <button class="rangeBtn" data-range="bass">
-         낮은음자리표
-        </button>
-
-        <button class="rangeBtn" data-range="all">
-         전체 섞기
-        </button>
-
+            <button class="rangeBtn" data-range="all">
+                전체 섞기
+            </button>
         </div>
 
-        <!-- 🎵 음표 개수 선택 -->
         <div id="countBox">
+            <p class="rangeTitle">
+                한 문제에 나올 음표 개수를 선택하세요
+            </p>
 
-        <p class="rangeTitle">
-          한 문제에 나올 음표 개수를 선택하세요
-        </p>
+            <button class="countBtn selected" data-count="1">
+                1개
+            </button>
 
-        <button class="countBtn selected" data-count="1">
-          1개
-        </button>
+            <button class="countBtn" data-count="2">
+                2개
+            </button>
 
-        <button class="countBtn" data-count="2">
-          2개
-        </button>
-
-        <button class="countBtn" data-count="3">
-          3개
-        </button>
-
+            <button class="countBtn" data-count="3">
+                3개
+            </button>
         </div>
 
-        <!-- ▶ 시작 버튼 -->
         <button id="startBtn">
             게임 시작
         </button>
 
-        <!-- 🎼 오선 영역 -->
         <div id="staffArea"></div>
 
-        <!-- 🎯 문제 -->
         <p id="question">
             버튼을 누르면 음표가 나옵니다.
         </p>
 
-        <!-- 🎹 계이름 버튼 -->
         <div id="choices"></div>
 
-        <!-- 🎉 결과 -->
         <p id="result"></p>
 
-        <!-- ⭐ 점수 -->
         <p id="score">
             점수: 0
         </p>
 
-        <!-- ⭐ 별 보상 -->
         <div id="starBox"></div>
 
     </div>
 
-    <!-- 🎼 VexFlow -->
     <script src="https://cdn.jsdelivr.net/npm/vexflow@5.0.0/build/cjs/vexflow.js"></script>
-
-    <!-- 🔥 JS 캐시 방지 -->
-    <script src="{{ url_for('static', filename='game.js?v=8') }}"></script>
-
+    <script src="{{ url_for('static', filename='game.js') }}?v=9"></script>
 </body>
 </html>
